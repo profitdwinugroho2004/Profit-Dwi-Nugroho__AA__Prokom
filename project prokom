@@ -1,0 +1,69 @@
+# Fungsi pertama: Mengumpulkan data surat tanah
+def fungsi_pertama():
+    print("Fungsi Pertama - Mengumpulkan data surat tanah")
+    
+    data_surat_tanah = {}
+    jumlah_surat_tanah = int(input("Masukkan jumlah surat tanah yang akan dibuat: "))
+    
+    # Percabangan: Memeriksa apakah jumlah surat tanah valid
+    if jumlah_surat_tanah <= 0:
+        print("Tidak ada surat tanah yang akan dibuat.")
+        return None
+    
+    for i in range(jumlah_surat_tanah):
+        nomor_surat = input(f"Nomor surat tanah {i + 1}: ")
+        luas_tanah = float(input(f"Luas tanah (m^2) untuk surat {nomor_surat}: "))
+        data_surat_tanah[nomor_surat] = luas_tanah
+    
+    return data_surat_tanah
+
+# Fungsi kedua: Menghitung total nilai tanah
+def fungsi_kedua(data_input):
+    print("Fungsi Kedua - Menghitung total nilai tanah")
+    
+    if data_input is None:
+        print("Tidak ada data surat tanah untuk dihitung.")
+        return None
+    
+    total_nilai_tanah = 0
+    for surat, luas in data_input.items():
+        harga_per_m2 = float(input(f"Harga per meter persegi untuk surat {surat}: "))
+        total_nilai_tanah += luas * harga_per_m2
+    
+    # Percabangan: Menampilkan pesan tergantung pada total nilai tanah
+    if total_nilai_tanah > 0:
+        print(f"Total nilai tanah untuk surat-surat tersebut adalah: Rp {total_nilai_tanah}")
+    else:
+        print("Belum ada nilai tanah yang dihitung.")
+    
+    return total_nilai_tanah
+
+# Fungsi ketiga: Membuat laporan surat tanah
+def fungsi_ketiga(data_input):
+    print("Fungsi Ketiga - Membuat laporan surat tanah")
+    
+    if data_input is None:
+        print("Tidak ada data nilai tanah untuk dilaporkan.")
+        return
+    
+    total_nilai_tanah = sum(data_input.values())  # Menghitung total nilai tanah dari dictionary
+    
+    # Percabangan: Menampilkan rekomendasi berdasarkan total nilai tanah
+    if total_nilai_tanah > 50000:
+        print("Rekomendasi: Nilai tanah sangat baik, pertahankan kualitasnya.")
+    else:
+        print("Rekomendasi: Evaluasi kembali nilai tanah untuk memastikan keuntungan maksimal.")
+    
+    # Perulangan: Mencetak laporan
+    print("Laporan Surat Tanah:")
+    for surat, luas in data_input.items():
+        print(f"Surat Tanah {surat} - Luas Tanah: {luas} m^2")
+    print(f"Total Nilai Tanah: Rp {total_nilai_tanah}")
+
+# Memulai program dengan menjalankan fungsi pertama
+data_surat_tanah = fungsi_pertama()
+if data_surat_tanah is not None:
+    total_nilai_tanah = fungsi_kedua(data_surat_tanah)
+    fungsi_ketiga(data_surat_tanah)  # Mengirimkan dictionary data_surat_tanah bukan total_nilai_tanah
+else:
+    print("Tidak ada data surat tanah untuk dihitung atau dilaporkan.")
